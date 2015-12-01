@@ -1,0 +1,50 @@
+{
+  "name": "midgethoen.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node devserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/midgethoen/midgethoen.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/midgethoen/midgethoen.github.io/issues"
+  },
+  "homepage": "https://github.com/midgethoen/midgethoen.github.io#readme",
+  "devDependencies": {
+    "babel": "^6.1.18",
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-transform-react-jsx": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-es2015-rollup": "^1.0.0",
+    "chai": "^3.4.1",
+    "fetch-mock": "^2.3.1",
+    "node-fetch": "^1.3.3",
+    "react-dom": "^0.14.2",
+    "react-hot-loader": "^1.3.0",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.4",
+    "rollup-plugin-babel": "^2.1.0",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "fetch-mock": "^2.3.1",
+    "history": "^1.13.1",
+    "isomorphic-fetch": "^2.2.0",
+    "marked": "^0.3.5",
+    "mockery": "^1.4.0",
+    "react": "^0.14.2",
+    "react-router": "^1.0.0",
+    "redux-devtools": "^2.1.5",
+    "redux-router": "^1.0.0-beta4",
+    "redux-thunk": "^1.0.0",
+    "whatwg-fetch": "^0.10.1"
+  }
+}
