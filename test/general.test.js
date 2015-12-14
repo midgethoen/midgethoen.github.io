@@ -3,6 +3,7 @@ import * as chai from 'chai'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import {postReducer} from '../src/reducers'
+let expect = chai.expect
 
 chai.should()
 
@@ -35,3 +36,22 @@ describe('postReducer',()=>{
     result[1].should.be.equal(action.post)
   })
 })
+
+function retVal(val){
+  return new Promise((res, rej)=>{
+    setTimeout(function(){res(val)}, 5)
+  })
+}
+function square(x){
+  return x*x
+}
+describe('promise', function(){
+  it('should map collecion of promises', function(){
+    return Promise.all( [1,2,3].map(retVal) )
+      .then(res=>{
+        return res.map( square )
+      }).then(res=>{
+      expect(res).to.deep.equal([1,4,9])
+    })
+  });
+});
