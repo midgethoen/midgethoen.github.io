@@ -1,4 +1,5 @@
 import replay from 'Replay'
+replay.fixtures = __dirname + '/fixtures'
 import sinon from 'sinon'
 import chai from 'chai'
 let {expect} = chai
