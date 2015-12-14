@@ -1,19 +1,6 @@
 import 'isomorphic-fetch'
 import { curry, merge, __ } from 'ramda'
 const API_HOST = 'https://api.github.com'
-import fs from 'fs'
-
-const token = fs.readFileSync('.authToken')
-function authFetch(url){
-  return fetch(
-    url,
-    {
-      headers: {
-        'Authorization': 'token '+token
-      }
-    }
-  )
-}
 
 function getText(response) {
   return response.text()
@@ -33,18 +20,18 @@ const postCommitsUrl = (repo, path) => {
 
 export function fetchPostList(repo){
   let url = postListingUrl(repo)
-  return authFetch(url).then(parseJson)
+  return fetch(url).then(parseJson)
 }
 
 export function fetchPostContent(post){
-  return authFetch(post.download_url)
+  return fetch(post.download_url)
     .then( getText )
     .then( content => merge(post, {content}) )
 }
 
 export function fetchPostCommits(repo, post){
   let url = postCommitsUrl(repo, post.path)
-  return authFetch(url)
+  return fetch(url)
     .then(parseJson)
     .then(curry(addCommitsToPost)(post))
 }
