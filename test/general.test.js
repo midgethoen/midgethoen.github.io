@@ -2,7 +2,7 @@
 import * as chai from 'chai'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import {postReducer} from '../src/reducers'
+import {postsReducer} from '../src/reducers'
 let expect = chai.expect
 
 chai.should()
@@ -22,31 +22,22 @@ describe('React', ()=>{
 describe('postReducer',()=>{
   it('should return the state by default', ()=>{
     let id = {}
-    let result = blog.postReducer(id, undefined)
+    let result = postsReducer(id, undefined)
     result.should.be.equal(id)
     result.should.not.be.equal({})
   })
-
-  it('should add posts',()=>{
-    let state = [{}]
-    let result = blog.postReducer(state, action)
-    result.should.not.be.equal(state)
-    result.should.have.length(2)
-    result[0].should.be.equal(state[0])
-    result[1].should.be.equal(action.post)
-  })
 })
 
-function retVal(val){
-  return new Promise((res, rej)=>{
-    setTimeout(function(){res(val)}, 5)
-  })
-}
-function square(x){
-  return x*x
-}
 describe('promise', function(){
   it('should map collecion of promises', function(){
+    function retVal(val){
+      return new Promise((res, rej)=>{
+        setTimeout(function(){res(val)}, 5)
+      })
+    }
+    function square(x){
+      return x*x
+    }
     return Promise.all( [1,2,3].map(retVal) )
       .then(res=>{
         return res.map( square )
