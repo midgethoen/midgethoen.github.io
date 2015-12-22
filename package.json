@@ -52,9 +52,10 @@
     "mockery": "^1.4.0",
     "ramda": "^0.18.0",
     "react": "^0.14.2",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.2",
     "redux-devtools": "^2.1.5",
     "redux-router": "^1.0.0-beta4",
+    "redux-simple-router": "^1.0.1",
     "redux-thunk": "^1.0.0",
     "whatwg-fetch": "^0.10.1"
   }

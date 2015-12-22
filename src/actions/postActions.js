@@ -1,6 +1,6 @@
 'use strict'
 
-import 'whatwg-fetch';
+import 'isomorphic-fetch';
 
 import {parse} from 'path';
 

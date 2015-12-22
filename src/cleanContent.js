@@ -50,6 +50,7 @@ const to = [
     title: "Stuff and things",
     sha: "",
     url: "",
+    slug: '',
     content: "# A long time ago",
     tags: [],
     categories: [],
@@ -140,6 +141,8 @@ export const cleanContent = map(pipe(
   titleFromName,
   over(lensProp('commits'), map(cleanCommit)),
   renameProp('html_url', 'url'),
+  renameProp('name', 'slug'),
+  over(lensProp('slug'), slug=>slug.replace(/\..*$/, '')),
   pick(keys(to[0])),
   extractAndApplyMetaHeader
 ))

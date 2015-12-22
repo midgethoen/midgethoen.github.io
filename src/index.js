@@ -60,7 +60,6 @@ export const root =
         <Route path='/' component={App}>
           <IndexRoute component={PostListing}/>
           <Route path='/posts/:slug' component={Post}/>
-          <Route path='/posts/:slug/:part' component={Post}/>
         </Route>
       </ReduxRouter>
     </Provider>

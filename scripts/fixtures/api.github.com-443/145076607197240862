@@ -1,0 +1,27 @@
+GET /repos/midgethoen/blog/contents/posts/
+accept-encoding: gzip,deflate
+accept: */*
+
+HTTP/1.1 302 Found
+server: GitHub.com
+date: Tue, 22 Dec 2015 06:34:31 GMT
+content-type: text/html;charset=utf-8
+content-length: 0
+connection: close
+status: 302 Found
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 46
+x-ratelimit-reset: 1450768792
+location: https://api.github.com/repositories/46435610/contents/posts
+access-control-allow-credentials: true
+access-control-expose-headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+access-control-allow-origin: *
+content-security-policy: default-src 'none'
+strict-transport-security: max-age=31536000; includeSubdomains; preload
+x-content-type-options: nosniff
+x-frame-options: deny
+x-xss-protection: 1; mode=block
+vary: Accept-Encoding
+x-served-by: 2811da37fbdda4367181b328b22b2499
+x-github-request-id: 50719C7C:1D261:15EAF993:5678EEF7
+
