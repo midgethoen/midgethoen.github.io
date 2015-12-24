@@ -1,19 +1,22 @@
 'use strict'
 import replay from 'Replay'
-console.log('path', __dirname + '/fixtures')
+
+/* jshint node: true */
 replay.fixtures = __dirname + '/fixtures'
 
 
 import { routeReducer, replacePath } from 'redux-simple-router'
-import { RoutingContext } from 'react-router'
+import { match, Router, RouterContext, RoutingContext } from 'react-router'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { merge, curry, pluck, prepend, tap, pipe, map } from 'ramda'
 
 import { cleanContent } from '../src/cleanContent'
 import { fetchContent } from '../src/fetchContent'
 
-import ReactDOMServer from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import React from 'react'
-import { routes } from '../src/components/router'
+import { ConnectedRouter, routes } from '../src/components/router'
 import fs from 'fs'
 import path from 'path'
 
@@ -39,16 +42,29 @@ function createRoutes(state) {
 
     return map(createRoutedState(state), routes)
 }
+function renderAll(states){
+  return Promise.all(map(render, states));
+}
 
 function render(state) {
-  console.log(RoutingContext)
-  let render = ReactDOMServer.renderToString(
-    React.createElement(RoutingContext, state, routes())
-  )
-  return {
-    render,
-    state
-  }
+  return new Promise(function(res, rej){
+    let store = createStore((x)=>x, state)
+    let rs = routes()
+    match(
+      {routes: rs, location: state.routing.path},
+      (err, redir, props)=>{
+        console.log(props)
+        let render = renderToString(
+          <Provider store={store} >
+            <RoutingContext { ...props } >
+              { rs }
+            </RoutingContext>
+          </Provider>
+        )
+        res({render,state})
+      }
+    )
+  })
 }
 
 function writeToDisk(args){
@@ -69,12 +85,10 @@ fetchContent('midgethoen/blog')
   .then(cleanContent)
   .then(content=>{ return {posts: content} }) // this is the base state
   .then(createRoutes)
-  .then(map(render))
-  .then(tap(console.log))
+  .then(renderAll)
   .then(map(writeToDisk))
   .then( ()=>{
     //say yay!
     console.log('Yay!')
   })
   .catch(err=>console.log(err.message, err.stack))
-

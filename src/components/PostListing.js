@@ -9,11 +9,10 @@ const { PropTypes } = React
 import { fetchPosts } from '../actions/postActions'
 
 const PostList = ({posts})=>{
-  console.log('posts', arguments, posts)
   return <ul>
       {
         posts.map((post)=>{
-          return <li key={post.id}>
+          return <li key={post.slug}>
             <Link to={`/posts/${post.slug}`}>
               {post.path}
             </Link>
