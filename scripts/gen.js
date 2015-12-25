@@ -73,8 +73,6 @@ function writeToDisk(args){
   let filename = path.join(__dirname, root, state.routing.path)
   if (filename[filename.length-1] == '/'){
     filename += 'index.html'
-  } else {
-    filename += '.html'
   }
   console.log('writing to', filename)
   fs.writeFileSync(filename, render)

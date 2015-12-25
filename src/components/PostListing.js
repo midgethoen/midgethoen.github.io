@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { identity } from 'lodash'
 const { PropTypes } = React
+import { pick } from 'ramda'
 
 import { fetchPosts } from '../actions/postActions'
 
@@ -13,17 +14,13 @@ const PostList = ({posts})=>{
       {
         posts.map((post)=>{
           return <li key={post.slug}>
-            <Link to={`/posts/${post.slug}`}>
-              {post.path}
+            <Link to={`posts/${post.slug}`}>
+              {post.title}
             </Link>
           </li>
           })
       }
     </ul>
-}
-
-const NoPosts = ()=>{
-  return <div>no posts.. :(</div>
 }
 
 const PostListing = React.createClass({
@@ -33,12 +30,13 @@ const PostListing = React.createClass({
   render: function(){
     let {posts, dispatch} = this.props
     let dispatchFetchPosts = (...args)=> dispatch(fetchPosts(...args))
-    let content = posts.length ? <PostList posts={posts}/> : <NoPosts/>
     return <div>
-      { content }
-      <button onClick={dispatchFetchPosts}>fetch posts</button>
+      <PostList posts={posts}/>
     </div>
   }
 })
 
-export default connect(identity)(PostListing)
+
+export default connect(
+  pick(['posts'])
+)(PostListing)

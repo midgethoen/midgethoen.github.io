@@ -142,7 +142,12 @@ export const cleanContent = map(pipe(
   over(lensProp('commits'), map(cleanCommit)),
   renameProp('html_url', 'url'),
   renameProp('name', 'slug'),
-  over(lensProp('slug'), slug=>slug.replace(/\..*$/, '')),
+  over(
+    lensProp('slug'), 
+    slug=>slug
+    .replace(/\..*$/, '')
+    .replace(/\s+/g, '-')
+  ),
   pick(keys(to[0])),
   extractAndApplyMetaHeader
 ))
