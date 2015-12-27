@@ -14,7 +14,7 @@ const PostList = ({posts})=>{
       {
         posts.map((post)=>{
           return <li key={post.slug}>
-            <Link to={`posts/${post.slug}`}>
+            <Link to={`posts/${post.slug}.html`}>
               {post.title}
             </Link>
           </li>

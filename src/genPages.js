@@ -48,12 +48,17 @@ function render(state) {
     match(
       {routes: rs, location: state.routing.path},
       (err, redir, props)=>{
-        let render = renderToString(
-          <Provider store={store} >
-            <RoutingContext { ...props } >
-              { rs }
-            </RoutingContext>
-          </Provider>
+        let render = '<!doctype html>'+renderToString(
+          <html>
+            <head />
+            <body>
+              <Provider store={store} >
+                <RoutingContext { ...props } >
+                  { rs }
+                </RoutingContext>
+              </Provider>
+            </body>
+          </html>
         )
         res({render,state})
       }
@@ -66,6 +71,8 @@ function writeToDisk(root='www/', args){
   let filename = path.join(root, state.routing.path)
   if (filename[filename.length-1] == '/'){
     filename += 'index.html'
+  } else {
+    filename += '.html'
   }
   fs.writeFileSync(filename, render)
   return filename
