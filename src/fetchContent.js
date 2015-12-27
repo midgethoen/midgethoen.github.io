@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import { curry, merge, __ } from 'ramda'
+import { cleanContent } from './cleanContent'
 const API_HOST = 'https://api.github.com'
 
 function getText(response) {
@@ -46,8 +47,8 @@ export function fetchContent(repo){
     let promises = posts
       .map((post)=>{
         return fetchPostContent(post)
-          .then(curry(fetchPostCommits)(repo))
+        .then(curry(fetchPostCommits)(repo))
       })
-    return Promise.all( promises )
+    return Promise.all( promises ).then(cleanContent)
   })
 }

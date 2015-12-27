@@ -144,9 +144,10 @@ export const cleanContent = map(pipe(
   renameProp('name', 'slug'),
   over(
     lensProp('slug'), 
-    slug=>slug
-    .replace(/\..*$/, '')
-    .replace(/\s+/g, '-')
+    slug=>{ return slug
+      .replace(/\..*$/, '')
+      .replace(/\s+/g, '-')
+    }
   ),
   pick(keys(to[0])),
   extractAndApplyMetaHeader
