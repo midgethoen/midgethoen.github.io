@@ -14,13 +14,14 @@ import {
   Router
 } from 'react-router'
 
+import Home from './Home'
+
 import App from './App'
-import PostListing from './Postlisting'
 import Post from './Post'
 
 export const routes = ()=>{
     return <Route path='/' component={App}>
-      <IndexRoute component={PostListing}/>
+      <IndexRoute component={Home}/>
       <Route path='/posts/:slug' component={Post}/>
     </Route>
 }
@@ -33,5 +34,3 @@ export const ConnectedRouter = (store)=>
       </Router>
     </Provider>
   </div>
-
-

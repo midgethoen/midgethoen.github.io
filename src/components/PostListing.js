@@ -2,41 +2,28 @@
 
 import * as React from 'react'
 import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { identity } from 'lodash'
 const { PropTypes } = React
-import { pick } from 'ramda'
+import Markdown from './markdown'
+import { last } from 'ramda'
 
-import { fetchPosts } from '../actions/postActions'
-
-const PostList = ({posts})=>{
-  return <ul>
+export const PostListing = ({posts})=>{
+  return <div>
       {
         posts.map((post)=>{
-          return <li key={post.slug}>
-            <Link to={`posts/${post.slug}.html`}>
-              {post.title}
+          return <article key={post.slug} className="col-xs-12">
+            <Date className="postDate" >{ last(post.commits).author.date }</Date>
+            <h2><Link to={`posts/${post.slug}.html`}>{ post.title }</Link></h2>
+            <Link className="teaser" to={`posts/${post.slug}.html`}>
+              <Markdown>{ post.teaser }</Markdown>
             </Link>
-          </li>
-          })
+          </article>
+        })
       }
-    </ul>
+    </div>
 }
 
-const PostListing = React.createClass({
-  propTypes: {
-    posts: PropTypes.array.isRequired
-  },
-  render: function(){
-    let {posts, dispatch} = this.props
-    let dispatchFetchPosts = (...args)=> dispatch(fetchPosts(...args))
-    return <div>
-      <PostList posts={posts}/>
-    </div>
-  }
-})
-
-
-export default connect(
-  pick(['posts'])
-)(PostListing)
+function Date(props){
+  return <span {...props} >
+    { props.children.toDateString() }
+  </span>
+}

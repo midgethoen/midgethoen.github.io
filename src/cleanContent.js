@@ -1,8 +1,9 @@
-"use strict"
+'use strict'
 import {
   pipe,
   lensProp,
   keys,
+  evolve,
   over,
   map,
   pick,
@@ -10,48 +11,51 @@ import {
   merge,
   mergeAll,
   omit,
-  curry,
-  tap
+  curry
 } from 'ramda'
 
-var author, committer, message
+// var author, committer, message
 
-const from = [
-  {
-    name: "stuff-and-things.md",
-    sha: "",
-    html_url: "",
-    content: "<!-- { title: \"Stuff and things\", tags:[], categories: []} -->/n # A long time ago", // markdown
-    commits: [
-      {
-        commit: {
-          author,
-          committer,
-          message,
-        },
-        html_url: '',
-        author: {
-          login: '',
-          avatar_url: '',
-          url:''
-        },
-        committer: {
-          login: '',
-          avatar_url: '',
-          url: ''
-        },
-      }
-    ]
-  }
-]
+function parseDate(dateStr) {
+  return new Date(dateStr)
+}
+
+// const from = [
+//   {
+//     name: 'stuff-and-things.md',
+//     sha: '',
+//     html_url: '',
+//     content: '<!-- { title: \'Stuff and things\', tags:[], categories: []} -->/n # A long time ago', // markdown
+//     commits: [
+//       {
+//         commit: {
+//           author,
+//           committer,
+//           message,
+//         },
+//         html_url: '',
+//         author: {
+//           login: '',
+//           avatar_url: '',
+//           url:''
+//         },
+//         committer: {
+//           login: '',
+//           avatar_url: '',
+//           url: ''
+//         },
+//       }
+//     ]
+//   }
+// ]
 
 const to = [
   {
-    title: "Stuff and things",
-    sha: "",
-    url: "",
+    title: 'Stuff and things',
+    sha: '',
+    url: '',
     slug: '',
-    content: "# A long time ago",
+    content: '# A long time ago',
     tags: [],
     categories: [],
     commits:[
@@ -62,14 +66,15 @@ const to = [
           email: '',
           url: '',
           avatar_url: '',
+          date: ''
         },
         committer: {
           login:'',
           email: '',
           url: '',
-          avatar_url: '',
+          avatar_url: ''
         },
-        message,
+        message: '',
         url: ''
       }
     ]
@@ -86,7 +91,7 @@ const filenameToTitle = (filename)=>{
 
 
 const titleFromName = (post)=>{
-  return merge(post, {title: filenameToTitle(post.name)});
+  return merge(post, {title: filenameToTitle(post.name)})
 }
 
 const renameProp = curry((oldName, newName, obj)=>{
@@ -112,7 +117,7 @@ const extractAndApplyMetaHeader = (post)=>{
     console.warn(
       'Found something like a meta header but could not parse it ?! (' + err.message + ')'
     )
-    return post;
+    return post
   }
   return mergeAll([
     post,
@@ -125,6 +130,7 @@ export const cleanCommit = commit => {
   return pipe(
     over(lensProp('author'), pipe(
       merge(commit.commit.author),
+      evolve({date: parseDate}),
       pick(keys(to[0].commits[0].author))
     )),
     over(lensProp('committer'), pipe(
@@ -143,7 +149,7 @@ export const cleanContent = map(pipe(
   renameProp('html_url', 'url'),
   renameProp('name', 'slug'),
   over(
-    lensProp('slug'), 
+    lensProp('slug'),
     slug=>{ return slug
       .replace(/\..*$/, '')
       .replace(/\s+/g, '-')

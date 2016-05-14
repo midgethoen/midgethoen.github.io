@@ -18,10 +18,16 @@ const Post = React.createClass({
   render: function(){
     let post = this.props.post
     return <article>
+      <h1>{ post.title } </h1>
       <Markdown>{ post.content }</Markdown>
+      <PostMeta post={ post } />
     </article>
   }
 })
+
+const PostMeta = ({post})=>{
+  return <p> ~meta goes here~ </p>
+}
 
 
 /*

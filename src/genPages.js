@@ -14,12 +14,13 @@ import React from 'react'
 import { ConnectedRouter, routes } from '../src/components/router'
 import fs from 'fs'
 import path from 'path'
+import Page from './components/Page'
 
 const createRoutedState = curry( (state, route) => {
   return merge(
     state,
     {routing: routeReducer(undefined, replacePath(route))}
-  );
+  )
 })
 
 const postRoutes = state => pipe(
@@ -49,16 +50,13 @@ function render(state) {
       {routes: rs, location: state.routing.path},
       (err, redir, props)=>{
         let render = '<!doctype html>'+renderToString(
-          <html>
-            <head />
-            <body>
-              <Provider store={store} >
-                <RoutingContext { ...props } >
-                  { rs }
-                </RoutingContext>
-              </Provider>
-            </body>
-          </html>
+          <Page>
+            <Provider store={store} >
+              <RoutingContext { ...props } >
+                { rs }
+              </RoutingContext>
+            </Provider>
+          </Page>
         )
         res({render,state})
       }

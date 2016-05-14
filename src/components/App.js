@@ -9,14 +9,31 @@ const App = React.createClass({
     children: PropTypes.node
   },
   render: function () {
-    return <div className="container">
+    return <div id="main" className="container">
+      <Header />
       <div className="row">
-        <div className="col-md-offset-3 col-md-4">
-      { this.props.children }
-        </div>
+        { this.props.children }
       </div>
+      <Footer />
     </div>
   }
 })
+
+const Header = ()=>{
+  return <header className="row">
+    <div className="col-xs-12">
+      <h1>midgethoen.github.io</h1>
+      <h4>Creating stuff since 1988</h4>
+    </div>
+  </header>
+}
+
+function Footer(){
+  return <footer className="row">
+    <div className="col-xs-12">
+      <p>Yay, footer, yay!!!!! hooray!! wohooooo! freck yeah!</p>
+    </div>
+  </footer>
+}
 
 export default App

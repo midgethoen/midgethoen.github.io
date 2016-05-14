@@ -1,0 +1,85 @@
+// solarized color schema
+$base03:    #002b36
+$base02:    #073642
+$base01:    #586e75
+$base00:    #657b83
+$base0:     #839496
+$base1:     #93a1a1
+$base2:     #eee8d5
+$base3:     #fdf6e3
+$yellow:    #b58900
+$orange:    #cb4b16
+$red:       #dc322f
+$magenta:   #d33682
+$violet:    #6c71c4
+$blue:      #268bd2
+$cyan:      #2aa198
+$green:     #859900
+
+//bootstrap colors
+$gray-dark:                 $base03 !default;
+$gray:                      $base02 !default;
+$gray-light:                $base01 !default;
+$gray-lighter:              $base00 !default;
+$gray-lightest:             $base2 !default;
+//
+// $brand-primary:             #0275d8 !default;
+// $brand-success:             #5cb85c !default;
+// $brand-info:                #5bc0de !default;
+// $brand-warning:             #f0ad4e !default;
+// $brand-danger:              #d9534f !default;
+
+$container-max-widths: ( sm: 576px, md: 720px, lg: 720px, xl: 720px );
+
+$brand-primary: $orange
+$link-color: $brand-primary
+
+$body-bg: $base3
+
+@import 'bootstrap/scss/bootstrap'
+
+// global stuff
+h1, h2, h3, h4, h5, h6
+  color: $yellow
+
+$footerHeight: 80px
+body, html
+  height: 100%
+
+#main
+  min-height: 100%
+  border: solid 5px $base2
+  position: relative
+
+footer
+  position: absolute
+  bottom: 0
+  height: $footerHeight
+  line-height: $footerHeight
+  background-color: $base2
+  width: 100%
+
+
+
+header
+  background-color: $base2
+  h1
+    padding-top: 20px
+    color: $brand-primary
+  h4
+    color: $gray-light
+    padding-bottom: 20px
+    margin-bottom: 20px
+
+$postHeaderHeight: 40px
+article
+  margin: 20px 0
+  h2 a
+    &, &:hover, &:active
+      color: inherit
+  .teaser h1, h3, h4, h5, h6
+    display: none
+  .postDate
+    @include pull-right
+    color: $gray-light
+    line-height: $postHeaderHeight
